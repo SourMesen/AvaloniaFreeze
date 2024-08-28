@@ -1,0 +1,14 @@
+<Window
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="Test.Views.MainWindow"
+	Width="200"
+	Height="200"
+	Title="Test"
+>
+	<Menu VerticalAlignment="Top">
+		<MenuItem Name="TestMenu" Header="Test">
+			<MenuItem Name="OpenWindow" Header="Open window" Click="OnButtonClick" />
+		</MenuItem>
+	</Menu>
+</Window>
