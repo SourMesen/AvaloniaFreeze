@@ -6,9 +6,5 @@
 	Height="200"
 	Title="Test"
 >
-	<Menu VerticalAlignment="Top">
-		<MenuItem Name="TestMenu" Header="Test">
-			<MenuItem Name="OpenWindow" Header="Open window" Click="OnButtonClick" />
-		</MenuItem>
-	</Menu>
+	<Button Content="Start test" Click="OnButtonClick" />
 </Window>

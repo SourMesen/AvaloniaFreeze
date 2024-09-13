@@ -8,8 +8,6 @@ namespace Test.Views;
 
 public partial class MainWindow : Window
 {
-    private Window? wnd = null;
-
     public MainWindow()
     {
         InitializeComponent();
@@ -17,25 +15,40 @@ public partial class MainWindow : Window
 
     public void OnButtonClick(object? sender, RoutedEventArgs e)
     {
-        wnd = new Window();
-        wnd.Title = "test window";
-        wnd.Width = 200;
-        wnd.Height = 200;
-        wnd.Show();
+        StartTest();
     }
 
-    protected override void OnKeyDown(KeyEventArgs e)
+    public void StartTest()
     {
-        //Open the menu
-        MenuItem options = this.GetControl<MenuItem>("TestMenu");
-        options.Open();
+        //Infinite loop that keeps opening new windows
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                await Task.Delay(20);
+                Dispatcher.UIThread.Post(() =>
+                {
+                    ExecuteTest();
+                });
+            }
+        });
+    }
 
-        //Click the "open window" option
-        MenuItem button = this.GetControl<MenuItem>("OpenWindow");
-        var clickEvent = new RoutedEventArgs(MenuItem.ClickEvent);
-        button.RaiseEvent(clickEvent);
+    private static void ExecuteTest()
+    {
+        Window wnd = new Window();
+        wnd.Width = 100;
+        wnd.Height = 100;
+        wnd.Show();
 
-        //Close the opened window immediately
-        wnd?.Close();
+        Task.Run(async () =>
+        {
+            //Each window closes 100ms after being shown
+            await Task.Delay(100);
+            Dispatcher.UIThread.Post(() =>
+            {
+                wnd.Close();
+            });
+        });
     }
 }
